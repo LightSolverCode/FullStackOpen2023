@@ -1,0 +1,41 @@
+sequenceDiagram
+    participant Browser(User)
+    participant Server
+
+    Note over Browser(User): User navigates to SPA Home page
+    Note over Browser(User): Status code: 304 - browser loads file from cache
+
+    Browser(User)->>Server: GET https://studies.cs.helsinki.fi/exampleapp/spa
+    activate Server
+    Server-->>Browser(User): the server delivers the spa.html file 
+    deactivate Server
+
+    Note over Browser(User): Status code: 304 - browser loads file from cache
+
+    Browser(User)->>Server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
+    activate Server
+    Server-->>Browser(User): the server delivers the main.css file
+    deactivate Server
+    
+    Note over Browser(User): Status code: 304 - browser loads file from cache
+
+    Browser(User)->>Server: GET https://studies.cs.helsinki.fi/exampleapp/spa.js
+    activate Server
+    Server-->>Browser(User): the server delivers the spa.js file
+    deactivate Server
+    
+    Note over Browser(User): Status code: 200 - browser fetches data from server.
+    Note over Browser(User): executes cached JS to update UI.
+
+    Browser(User)->>Server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
+    activate Server
+    Server-->>Browser(User): the server delivers the data.json file
+    deactivate Server
+
+    Note over Browser(User): Status code: 201 - Createdform method POST successfully recieved by server
+    Note over Browser(User): the browser executes cached JS again to update UI
+
+    Browser(User)->>Server: POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+    activate Server
+    Server-->>Browser(User): the note was succesfully submitted to the server
+    deactivate Server
