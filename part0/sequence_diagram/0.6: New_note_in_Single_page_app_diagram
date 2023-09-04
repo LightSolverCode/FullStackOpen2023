@@ -1,0 +1,13 @@
+sequenceDiagram
+    participant Browser(User)
+    participant Server
+
+    Note over Browser(User): User types message in input and clicks the submit button
+    
+    Browser(User)->>Server: POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+    
+    Note over Server: Status Code: 201 Created
+    Note over Server: server responds indicating message user typed in was successfully submitted
+
+    Note over Browser(User): JS updates the local state of the SPA (data stored in browser memory)
+    Note over Browser(User): JS Re-renders/ updates the DOM to reflect the change in the UI
