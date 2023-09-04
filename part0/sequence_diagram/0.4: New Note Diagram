@@ -1,0 +1,20 @@
+sequenceDiagram
+    participant Browser(User)
+    participant Server
+
+    Note over Browser(User): User writes a new note in the input field and clicks Save.
+    Note over Browser(User): Form sends/ POST's submited text to the server
+
+    Browser(User)->>Server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
+    activate Server
+    Note over Server: Saves Users new note.
+    Server-->>Browser(User):  302 redirect (note was successfully created and browser redirected)
+    deactivate Server
+
+    Browser(User)->>Server: GET https://studies.cs.helsinki.fi/exampleapp/notes
+    activate Server
+    Note over Server: Redirects browser to display updated notes .
+    Server-->>Browser(User): 304 Not Modified (notes page hasnt changed and browser can load cached version)
+    deactivate Server
+
+    Note over Browser(User): UI updates and new notes are displayed.
